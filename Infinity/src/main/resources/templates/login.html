@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Login Page</title>
+    <link rel="icon" th:href="@{../Media/Logo.png}" type="image/x-icon"/>
+
+    <link
+            href="https://fonts.googleapis.com/css?family=Assistant:400,700"
+            rel="stylesheet"
+    />
+    <link rel="stylesheet" th:href="@{../CSS/login.css}"/>
+    <link
+            crossorigin="anonymous"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+            integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+            referrerpolicy="no-referrer"
+            rel="stylesheet"
+    />
+</head>
+<body>
+<!-- Navigation Bar Starts Here -->
+<header class="header">
+    <a class="logo" th:href="@{/}">
+        <img alt="" src="" th:src="@{../MEDIA/Logo.png}"/>
+    </a>
+
+    <nav class="navbar">
+        <a th:href="@{/}">home</a>
+        <a th:href="@{/#about}">about</a>
+        <a th:href="@{/#menu}">services</a>
+        <a th:href="@{/#blogs}">blog</a>
+        <a th:href="@{/#review}">review</a>
+        <a th:href="@{/#contact}">contact</a>
+    </nav>
+
+    <div class="icons">
+        <a th:href="@{/service}">
+            <div class="fas fa-search" id="search-btn"></div>
+        </a>
+        <a th:href="@{/billing}">
+            <div class="fas fa-shopping-cart" id="cart-btn"></div>
+        </a>
+    </div>
+</header>
+<!-- Navigation Bar Ends Here -->
+<a id="logo" th:href="@{/}"><img alt="Infinity Photography Logo" src="" th:src="@{../MEDIA/Logo.png}"></a>
+<section class="login" id="login">
+    <div class="head">
+        <h1 class="company">Infinity Photography</h1>
+    </div>
+    <h3 class="welcome">Welcome Back</h3>
+    <div class="form">
+        <form
+                id="form"
+                method="post"
+                onsubmit="return(validateEmail() && validatePassword())"
+                th:action="@{/login}">
+            <div th:if="${param.error}">
+                <div class="alert alert-danger">Invalid username or
+                    password.
+                </div>
+            </div>
+            <div th:if="${param.logout}">
+                <div class="alert alert-info">You have been logged out.</div>
+            </div>
+
+            <label for="username"></label><input
+                id="username"
+                name="username"
+                placeholder="Email Address"
+                type="text"
+        />
+            <br/>
+            <h4
+                    class="error"
+                    id="error3"></h4>
+            <label for="password"></label><input
+                id="password"
+                name="password"
+                placeholder="Password"
+                type="Password"
+        />
+            <br/>
+            <h4
+                    class="error"
+                    id="error4"></h4>
+            <button id="button" type="submit">Log in</button>
+            <h5>Or Log in using</h5>
+            <button
+                    class="fa-brands fa-facebook-f signin"
+                    title="facebook"
+                    type="button"
+            ></button>
+            <button
+                    class="fa-brands fa-google signin"
+                    title="google"
+                    type="button"
+            ></button>
+            <br/>
+            <h3>
+                New User? <br/><a th:href="@{/signup}"
+            >Sign Up here</a>
+            </h3>
+        </form>
+        <br/>
+    </div>
+</section>
+<script th:src="@{../JS/login.js}"></script>
+</body>
+</html>

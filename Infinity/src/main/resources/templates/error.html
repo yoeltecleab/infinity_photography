@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@11}"></script>
+    <link rel="icon" th:href="@{../Media/Logo.png}" type="image/x-icon"/>
+
+    <style>
+        .swal2-popup {
+            /*background: linear-gradient(to top, #daf24bbf, #2e8bea);*/
+            background: radial-gradient(#64ff008c, #000000);
+            color: #ffffff;
+        }
+
+
+        .swal2-footer a {
+            font-size: 1em;
+            color: white;
+        }
+
+        .swal2-popup button {
+            background-color: red;
+        }
+
+        #myVideo {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+        }
+    </style>
+</head>
+<body onpageshow="errorCode()">
+<video autoplay id="myVideo" loop muted>
+    <source src="../static/Media/ErrorVideo.mp4" th:src="@{../Media/ErrorVideo.mp4}" type="video/mp4">
+</video>
+<script th:src="@{../JS/script.js}"></script>
+</body>
+</html>

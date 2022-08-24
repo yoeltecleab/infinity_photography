@@ -1,0 +1,330 @@
+<!-- This page holds the list of all the services offered by Infinity Photography.
+        It lets the user choose their desired booking with different options of
+        number of hours they want to book for. -->
+
+<!-- After the user chooses which service they want, it prompts to the "UserInfo page
+        to let the user put necessary details." -->
+
+<!-- Page doesn't allow user to access it unless they are logged in or registered -->
+<!-- No other pages after this are accessed unless they are signed in -->
+
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <link href="../static/CSS/service.css" rel="stylesheet" th:href="@{../CSS/Service.css}"/>
+    <link
+            crossorigin="anonymous"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+            integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+            referrerpolicy="no-referrer"
+            rel="stylesheet"
+    />
+    <link rel="icon" th:href="@{../Media/Logo.png}" type="image/x-icon"/>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!--    <script src="sweetalert2.all.min.js"></script>-->
+    <title>Our Services</title>
+</head>
+<body>
+<!-- Navigation Bar Starts Here -->
+<header class="header">
+    <a class="logo" th:href="@{/}">
+        <img alt="" src="" th:src="@{../MEDIA/Logo.png}"/>
+    </a>
+
+    <nav class="navbar">
+        <a th:href="@{/}">home</a>
+        <a th:href="@{/#about}">about</a>
+        <a th:href="@{/#menu}">services</a>
+        <a th:href="@{/#blogs}">blog</a>
+        <a th:href="@{/#review}">review</a>
+        <a th:href="@{/#contact}">contact</a>
+    </nav>
+
+    <div class="icons">
+        <a th:href="@{/service}">
+            <div class="fas fa-search" id="search-btn"></div>
+        </a>
+        <a th:href="@{/booking}">
+            <div class="fas fa-shopping-cart" id="cart-btn"></div>
+        </a>
+        <span sec:authorize="!isAuthenticated()">
+        <a th:href="@{/login}"
+        ><button id="login" type="button">Login</button></a
+        >
+        <a th:href="@{/signup}"
+        ><button id="signup" type="button">Signup</button></a
+        >
+      </span>
+
+        <span sec:authorize="isAuthenticated()">
+                  <a th:href="@{/}"
+                  ><button id="profile" th:text="${forName}" type="button">User</button></a
+                  >
+        <a
+        ><button id="logout" onclick="forLogout()" type="button">Logout</button></a
+        >
+      </span>
+    </div>
+</header>
+<!-- Navigation Bar Ends Here -->
+<table id="table">
+    <thead>
+    <tr>
+        <th>Event</th>
+        <th>Duration</th>
+        <th colspan="2">Deliverables</th>
+        <th>Base price</th>
+    </tr>
+    </thead>
+    <tr>
+        <td id="portrait" rowspan="3"><p>Portrait</p></td>
+        <td>30 mins</td>
+        <td>10 digital</td>
+        <td>10 printed</td>
+        <td>$ 175.00</td>
+    </tr>
+    <tr>
+        <td>1 hour</td>
+        <td>25 digital</td>
+        <td>25 printed</td>
+        <td>$ 250.00</td>
+    </tr>
+    <tr>
+        <td>2 hours</td>
+        <td>30 digital</td>
+        <td>30 printed</td>
+        <td>$ 300.00</td>
+    </tr>
+    <tr>
+        <td id="graduation" rowspan="3"><p>Graduation</p></td>
+        <td>1 hour</td>
+        <td>15 digital</td>
+        <td>15 printed</td>
+        <td>$ 200.00</td>
+    </tr>
+    <tr>
+        <td>2 hours</td>
+        <td>35 digital</td>
+        <td>35 printed</td>
+        <td>$ 300.00</td>
+    </tr>
+    <tr>
+        <td>4 hours</td>
+        <td>50 digital</td>
+        <td>50 printed</td>
+        <td>$ 450.00</td>
+    </tr>
+    <tr>
+        <td id="ceremony" rowspan="3"><p>Ceremony</p></td>
+        <td>1 hour</td>
+        <td>20 digital</td>
+        <td>20 printed</td>
+        <td>$ 250.00</td>
+    </tr>
+    <tr>
+        <td>2 hours</td>
+        <td>35 digital</td>
+        <td>35 printed</td>
+        <td>$ 350.00</td>
+    </tr>
+    <tr>
+        <td>4 hours</td>
+        <td>60 digital</td>
+        <td>60 printed</td>
+        <td>$ 550.00</td>
+    </tr>
+</table>
+<div id="note">
+    <h3>Additional Note</h3>
+    <ul>
+        <li>Charges vary by the occasion you are booking for</li>
+        <li>Outdoor shootings charge an extra $50</li>
+        <li>
+            For every additional person you bring to the portrait shooting, there
+            is an extra $50
+        </li>
+        <li>
+            For every additional 10 digital images requested, there is an extra
+            $30
+        </li>
+        <li>
+            For every additional 10 printed images requested, there is an extra
+            $50
+        </li>
+        <li>
+            If cancelled booking within 24 hours, the 20% deposit is non
+            refundable
+        </li>
+    </ul>
+</div>
+<!-- Form code starts here -->
+<section id="details">
+    <h3 class="selection">Please put your selection</h3>
+    <div class="form">
+        <form id="form" method="post" onsubmit="" th:action="@{/service/{id} (id=${forId})}"
+              th:object="${booking}">
+            <h3 class="title">Occasion</h3>
+            <input
+                    class="option"
+                    id="portraitR"
+                    name="occasion"
+                    placeholder="x"
+                    th:field="*{occasion}"
+                    type="radio"
+                    value="portrait"
+            />
+            <label class="option" for="portraitR">Portrait</label>
+            <input
+                    class="option"
+                    id="grad"
+                    name="occasion"
+                    placeholder="x"
+                    type="radio"
+                    value="graduation"
+            />
+            <label class="option" for="grad">Graduation</label>
+            <input
+                    class="option"
+                    id="ceremonyR"
+                    name="occasion"
+                    placeholder="x"
+                    type="radio"
+                    value="ceremony"
+            />
+            <label class="option" for="ceremonyR">Ceremonies</label>
+
+            <h3 class="title">Location</h3>
+            <input id="in" name="location" placeholder="x" th:field="*{location}" type="radio" value="studio"/>
+            <label class="option" for="in">Studio</label>
+            <input id="out" name="location" placeholder="x" th:field="*{location}" type="radio" value="outdoor"/>
+            <label class="option" for="out">Outdoor</label>
+            <div id="blank"></div>
+            <br>
+            <div id="dates">
+
+                <br>
+                <input id="date" name="service_time" placeholder=""
+                       th:field="*{serviceDate}"
+                       type="date"/>
+                <label class="option" for="date">Select Your Date</label>
+                <br>
+                <input id="time" name="service_time" placeholder="" th:field="*{serviceTime}"
+                       type="time"/>
+                <label class="option" for="time">Select Your Time</label>
+                <br>
+            </div>
+            <label for="duration"></label><input
+                id="duration"
+                max="24"
+                min="0.5"
+                name="duration"
+                placeholder="Duration of Session"
+                step="0.5"
+                th:field="*{duration}"
+                type="number"
+        />
+            <br/>
+            <h4 class="error" id="error1"></h4>
+            <label for="people"></label><input
+                id="people"
+                max="15"
+                min="1"
+                name="people"
+                placeholder="Number of people"
+                step="1"
+                th:field="*{people}"
+                type="number"
+        />
+            <br/>
+            <h4 class="error" id="error2"></h4>
+            <label for="digital"></label><input
+                id="digital"
+                max="100"
+                min="1"
+                name="digital"
+                placeholder="Number of digital images"
+                step="1"
+                th:field="*{digital}"
+                type="number"
+        />
+            <br/>
+            <h4 class="error" id="error3"></h4>
+            <label for="print"></label><input
+                id="print"
+                max="100"
+                min="1"
+                name="print"
+                placeholder="Number of printed images"
+                step="1"
+                th:field="*{printed}"
+                type="number"
+        />
+            <br/>
+            <div id="price">
+                <span> Total Price: $</span> <span id="priceNumber">100</span>
+            </div>
+            <button id="button" type="submit">Book</button>
+
+            <section id="forErrors" th:if="${#fields.hasAnyErrors()}"
+            >
+                <p th:each="error: ${#fields.errors('occasion')}"
+                   th:text="${error}">
+                </p>
+                <p th:each="error: ${#fields.errors('location')}"
+                   th:text="${error}">
+                </p>
+                <p th:each="error: ${#fields.errors('serviceDate')}"
+                   th:text="${error}">
+                </p>
+                <p th:each="error: ${#fields.errors('serviceTime')}"
+                   th:text="${error}">
+                </p>
+                <p th:each="error: ${#fields.errors('duration')}"
+                   th:text="${error}">
+                </p>
+                <p th:each="error: ${#fields.errors('people')}"
+                   th:text="${error}">
+                </p>
+                <p th:each="error: ${#fields.errors('digital')}"
+                   th:text="${error}">
+                </p>
+                <p th:each="error: ${#fields.errors('printed')}"
+                   th:text="${error}">
+                </p>
+            </section>
+        </form>
+        <br/>
+    </div>
+</section>
+<!-- Form code ends here -->
+<!-- Footer Starts here -->
+<section class="footer">
+    <div class="share">
+        <a class="fab fa-facebook-f" th:href="@{/service}"></a>
+        <a class="fab fa-twitter" th:href="@{/service}"></a>
+        <a class="fab fa-instagram" th:href="@{/service}"></a>
+        <a class="fab fa-linkedin" th:href="@{/service}"></a>
+        <a class="fab fa-pinterest" th:href="@{/service}"></a>
+    </div>
+
+    <div class="links">
+        <a th:href="@{/}">home</a>
+        <a th:href="@{/#about}">about</a>
+        <a th:href="@{/#menu}">services</a>
+        <a th:href="@{/#blogs}">blog</a>
+        <a th:href="@{/#review}">review</a>
+        <a th:href="@{/#contact}">contact</a>
+    </div>
+
+    <div class="credit">
+        created by <span> Yoel Tecleab </span> | all rights reserved
+    </div>
+</section>
+<!-- Footer Ends here -->
+<script th:src="@{../JS/service.js}"></script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<!--suppress HtmlFormInputWithoutLabel -->
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <link
+            crossorigin="anonymous"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+            integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+            referrerpolicy="no-referrer"
+            rel="stylesheet"
+    />
+    <link rel="icon" th:href="@{../Media/Logo.png}" type="image/x-icon"/>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@11}"></script>
+
+
+    <!-- custom css file link  -->
+    <link
+            href="../static/CSS/billing.css"
+            rel="stylesheet"
+            th:href="@{../CSS/billing.css}"
+    />
+    <title>Payment Information</title>
+</head>
+<body>
+<!-- Navigation Bar Starts Here -->
+<header class="header">
+    <a class="logo" th:href="@{/}">
+        <img alt="" src="" th:src="@{../MEDIA/Logo.png}"/>
+    </a>
+
+    <nav class="navbar">
+        <a th:href="@{/}">home</a>
+        <a th:href="@{/#about}">about</a>
+        <a th:href="@{/#menu}">services</a>
+        <a th:href="@{/#blogs}">blog</a>
+        <a th:href="@{/#review}">review</a>
+        <a th:href="@{/#contact}">contact</a>
+    </nav>
+
+    <div class="icons">
+        <a th:href="@{/service}">
+            <div class="fas fa-search" id="search-btn"></div>
+        </a>
+        <a th:href="@{/booking}">
+            <div class="fas fa-shopping-cart" id="cart-btn"></div>
+        </a>
+        <span sec:authorize="!isAuthenticated()">
+        <a th:href="@{/login}"
+        ><button id="login" type="button">Login</button></a
+        >
+        <a th:href="@{/signup}"
+        ><button id="signup" type="button">Signup</button></a
+        >
+      </span>
+
+        <span sec:authorize="isAuthenticated()">
+                  <a th:href="@{/}"
+                  ><button id="profile" th:text="${forName}" type="button">User</button></a
+                  >
+        <a
+        ><button id="logout" onclick="forLogout()" type="button">Logout</button></a
+        >
+      </span>
+    </div>
+</header>
+<!-- Navigation Bar Ends Here -->
+<div class="container">
+    <form
+            action="#"
+            method="post"
+            onsubmit="finalSuccess()"
+            th:action="@{/billing}"
+            th:object="${billing}"
+            th:onsubmit=""
+    >
+        <div class="row">
+            <div class="col">
+                <h3 class="title">billing address</h3>
+
+                <div class="inputBox">
+                    <span></span>
+                    <input
+                            placeholder="Full Name"
+                            th:field="*{fullName}"
+                            type="text"
+                    />
+                </div>
+                <div class="inputBox">
+                    <span></span>
+                    <input placeholder="Email" th:field="*{email}" type="text"/>
+                </div>
+                <div class="inputBox">
+                    <span></span>
+                    <input placeholder="Address" th:field="*{address}" type="text"/>
+                </div>
+                <div class="inputBox">
+                    <span></span>
+                    <input placeholder="City" th:field="*{city}" type="text"/>
+                </div>
+
+                <div class="flex">
+                    <div class="inputBox">
+                        <span></span>
+                        <input placeholder="State" th:field="*{state}" type="text"/>
+                    </div>
+                    <div class="inputBox">
+                        <span></span>
+                        <input
+                                placeholder="Zip Code"
+                                step="1"
+                                th:field="*{zipCode}"
+                                type="number"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <h3 class="title">payment</h3>
+
+                <div class="inputBox" id="card">
+                    <span>cards accepted :</span>
+                    <img alt="" src="" th:src="@{../MEDIA/card_img.png}"/>
+                </div>
+                <div class="inputBox">
+                    <span></span>
+                    <input
+                            placeholder="Name on card"
+                            th:field="*{nameCard}"
+                            type="text"
+                    />
+                </div>
+                <div class="inputBox">
+                    <span></span>
+                    <input
+                            placeholder="Credit card number"
+                            step="1"
+                            th:field="*{cardNumber}"
+                            type="number"
+                    />
+                </div>
+                <div class="inputBox">
+                    <span></span>
+                    <input
+                            placeholder="Expiration month"
+                            step="1"
+                            th:field="*{expMonth}"
+                            type="number"
+                    />
+                </div>
+
+                <div class="flex">
+                    <div class="inputBox">
+                        <span></span>
+                        <input placeholder="Year" step="1" th:field="*{expYear}" type="number"/>
+                    </div>
+                    <div class="inputBox">
+                        <span></span>
+                        <input placeholder="CVV code" step="1" th:field="*{cvv}" type="number"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <input
+                class="submit-btn"
+                type="submit"
+                value="proceed to checkout"
+        />
+        <section id="forErrors1" th:if="${#fields.hasAnyErrors()}"
+        >
+            <p th:each="error: ${#fields.errors('fullName')}"
+               th:text="${error}">
+            </p><br>
+            <p th:each="error: ${#fields.errors('email')}"
+               th:text="${error}">
+            </p><br>
+            <p th:each="error: ${#fields.errors('address')}"
+               th:text="${error}">
+            </p><br>
+            <p th:each="error: ${#fields.errors('city')}"
+               th:text="${error}">
+            </p><br>
+            <p th:each="error: ${#fields.errors('state')}"
+               th:text="${error}">
+            </p><br>
+            <p th:each="error: ${#fields.errors('zipCode')}"
+               th:text="${error}">
+            </p>
+        </section>
+        <section id="forErrors2" th:if="${#fields.hasAnyErrors()}"
+        >
+            <p th:each="error: ${#fields.errors('nameCard')}"
+               th:text="${error}">
+            </p> <br>
+            <p th:each="error: ${#fields.errors('cardNumber')}"
+               th:text="${error}">
+            </p><br>
+            <p th:each="error: ${#fields.errors('expMonth')}"
+               th:text="${error}">
+            </p><br>
+            <p th:each="error: ${#fields.errors('expYear')}"
+               th:text="${error}">
+            </p><br>
+            <p th:each="error: ${#fields.errors('cvv')}"
+               th:text="${error}">
+            </p>
+        </section>
+    </form>
+</div>
+<!-- Footer Starts here -->
+<section class="footer">
+    <div class="share">
+        <a class="fab fa-facebook-f" th:href="@{/billing}"></a>
+        <a class="fab fa-twitter" th:href="@{/billing}"></a>
+        <a class="fab fa-instagram" th:href="@{/billing}"></a>
+        <a class="fab fa-linkedin" th:href="@{/billing}"></a>
+        <a class="fab fa-pinterest" th:href="@{/billing}"></a>
+    </div>
+
+    <div class="links">
+        <a th:href="@{/}">home</a>
+        <a th:href="@{/#about}">about</a>
+        <a th:href="@{/menu}">services</a>
+        <a th:href="@{/#blogs}">blog</a>
+        <a th:href="@{/#review}">review</a>
+        <a th:href="@{/#contact}">contact</a>
+    </div>
+
+    <div class="credit">
+        created by <span> Yoel Tecleab </span> | all rights reserved
+    </div>
+</section>
+<!-- Footer Ends here -->
+<script th:src="@{sweetalert2.all.min.js}"></script>
+<script th:src="@{../JS/script.js}"></script>
+</body>
+</html>

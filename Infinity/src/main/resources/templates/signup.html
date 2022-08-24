@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Register Page</title>
+    <link href="../static/Media/Logo.png" rel="icon" th:href="@{../Media/Logo.png}" type="image/x-icon"/>
+
+    <link
+            href="https://fonts.googleapis.com/css?family=Assistant:400,700"
+            rel="stylesheet"
+    />
+    <link href="../static/CSS/signup.css" rel="stylesheet" th:href="@{../CSS/signup.css}"/>
+    <link
+            crossorigin="anonymous"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+            integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+            referrerpolicy="no-referrer"
+            rel="stylesheet"
+    />
+</head>
+<body>
+<!-- Navigation Bar Starts Here -->
+<header class="header">
+    <a class="logo" href="index.html" th:href="@{/}">
+        <img alt="" src="../static/Media/Logo.png" th:src="@{../MEDIA/Logo.png}"/>
+    </a>
+
+    <nav class="navbar">
+        <a href="index.html" th:href="@{/}">home</a>
+        <a href="index.html#about" th:href="@{/#about}">about</a>
+        <a href="index.html#menu" th:href="@{/#menu}">services</a>
+        <a href="index.html#blogs" th:href="@{/#blogs}">blog</a>
+        <a href="index.html#review" th:href="@{/#review}">review</a>
+        <a href="index.html#contact" th:href="@{/#contact}">contact</a>
+    </nav>
+
+    <div class="icons">
+        <a th:href="@{/service}">
+            <div class="fas fa-search" id="search-btn"></div>
+        </a>
+        <a th:href="@{/booking}">
+            <div class="fas fa-shopping-cart" id="cart-btn"></div>
+        </a>
+    </div>
+</header>
+<!-- Navigation Bar Ends Here -->
+<a id="logo" th:href="@{/}"
+><img alt="Infinity Photography Logo" src="../static/Media/Logo.png" th:src="@{../Media/Logo.png}"
+/></a>
+<section class="login" id="login">
+    <div class="head">
+        <h1 class="company">Infinity Photography</h1>
+    </div>
+    <h3 class="welcome">Welcome</h3>
+    <div class="form">
+        <form
+                id="form"
+                method="post"
+                th:action="@{/signup}"
+                th:object="${user}"
+        >
+            <label for="firstName"></label>
+            <input id="firstName" name="firstName" placeholder="First name" th:field="*{firstName}"
+                   type="text"/>
+            <br/>
+            <h4 class="error" id="error1"></h4>
+            <label for="lastName"></label><input id="lastName" name="lastName" placeholder="Last name"
+                                                 th:field="*{lastName}"
+                                                 type="text"/>
+            <br/>
+            <h4 class="error" id="error2"></h4>
+            <label for="email"></label><input
+                id="email"
+                name="email"
+                placeholder="Email Address"
+                th:field="*{email}"
+                type="text"
+        />
+            <br/>
+            <h4 class="error" id="error3"></h4>
+            <label for="createPassword"></label><input
+                id="createPassword"
+                name="password"
+                placeholder="Create password"
+                th:field="*{password}"
+                type="Password"
+        />
+            <br/>
+            <h4 class="error" id="error4"></h4>
+            <label for="confirmPassword"></label><input
+                id="confirmPassword"
+                name="confirmPassword"
+                placeholder="Confirm password"
+                th:field="*{confirmPassword}"
+                type="Password"
+        />
+            <br/>
+            <h4 class="error" id="error5"></h4>
+            <label for="checkbox"></label><input
+                id="checkbox"
+                name="terms"
+                placeholder="check"
+                th:field="*{terms}"
+                type="checkbox"
+        />
+            <h4 id="terms">
+                By clicking this you agree to our <br/>
+                <a th:href="@{/signup}">Terms and Conditions</a>
+            </h4>
+            <h4 class="error" id="error6"></h4>
+            <button id="button" type="submit">Sign Up</button>
+            <h5>Or Sign up using</h5>
+            <button
+                    class="fa-brands fa-facebook-f signin"
+                    title="facebook"
+                    type="button"
+            ></button>
+            <button
+                    class="fa-brands fa-google signin"
+                    title="google"
+                    type="button"
+            ></button>
+            <br/>
+            <h3>
+                Already have an account? <br/><a th:href="@{/login}"
+            >Sign in here</a
+            >
+            </h3>
+            <section id="forErrors" th:if="${#fields.hasAnyErrors()}"
+            >
+                <p th:each="error: ${#fields.errors('firstName')}"
+                   th:text="${error}">
+                </p>
+                <p th:each="error: ${#fields.errors('lastName')}"
+                   th:text="${error}">
+                </p>
+                <p th:each="error: ${#fields.errors('email')}"
+                   th:text="${error}">
+                </p>
+                <p th:each="error: ${#fields.errors('password')}"
+                   th:text="${error}">
+                </p>
+                <p th:each="error: ${#fields.errors('confirmPassword')}"
+                   th:text="${error}">
+                </p>
+                <p th:each="error: ${#fields.errors('terms')}"
+                   th:text="${error}">
+                </p>
+            </section>
+        </form>
+        <br/>
+    </div>
+</section>
+
+<!--    <script type="text/javascript" th:src="@{../JS/signup.js}"></script>-->
+</body>
+</html>

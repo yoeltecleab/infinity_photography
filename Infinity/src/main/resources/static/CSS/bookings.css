@@ -1,0 +1,262 @@
+:root {
+    --main-color: #e4b36e;
+    --secondary-color: rgb(47, 47, 200);
+    --warning: rgb(255, 80, 80);
+    --black: #13131a;
+    --bg: #010103;
+    --border: 0.1rem solid rgba(255, 255, 255, 0.3);
+}
+
+body {
+    background: var(--bg);
+    background-size: cover;
+}
+
+* {
+    font-family: "Roboto", sans-serif;
+    text-decoration: none;
+    text-transform: capitalize;
+    font-size: 62.5%;
+    color: #fff;
+}
+
+/* Navigation Bar Styles Start Here */
+.header {
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 7%;
+    border-bottom: var(--border);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.header .logo img {
+    height: 6rem;
+    transition: 1s;
+}
+
+.header .logo img:hover {
+    transform: scale(1.2);
+    transition: 1s;
+}
+
+.header .navbar a {
+    margin: 0 5rem;
+    font-size: 1.7rem;
+    color: #fff;
+}
+
+.header .navbar a:hover {
+    color: var(--main-color);
+    border-bottom: 0.1rem solid var(--main-color);
+    padding-bottom: 0.5rem;
+}
+
+.header .icons div,
+button {
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    font-size: 2.5rem;
+    margin-left: 2rem;
+    padding-left: 1em;
+}
+
+.header .icons div:hover {
+    color: var(--main-color);
+}
+
+.header .icons #login:hover {
+    color: gold;
+    transform: scale(1.1);
+    transition: 1s;
+}
+
+.header .icons #signup:hover {
+    color: gold;
+    transform: scale(1.1);
+    transition: 1s;
+}
+
+.header .icons #logout:hover {
+    color: gold;
+    transform: scale(1.1);
+    transition: 1s;
+}
+
+.header .icons #profile:hover {
+    color: gold;
+    transform: scale(1.1);
+    transition: 1s;
+}
+
+#login,
+#signup, #logout {
+    margin: 0 -3em 0 2em;
+    border: none;
+    background: transparent;
+    font-size: 20em;
+    color: #fff;
+    padding-left: 7rem;
+}
+
+#profile {
+    margin: 0 -3em 0 2em;
+    border: none;
+    background: transparent;
+    font-size: 20em;
+    color: #fff;
+    /*padding-left: 7rem;*/
+
+}
+
+/* Navigation Bar Styles End Here */
+/* Cart Styles Start Here */
+#cart {
+    /*position: relative;*/
+    font-size: 20em;
+    margin-top: 1em;
+    margin-left: 0.5em;
+    margin-bottom: 0.42em;
+    width: 93%;
+    background: linear-gradient(to left, rgb(132 90 19), rgb(33 33 115));
+    /*flex-grow: inherit;*/
+}
+
+#cart table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    white-space: nonwrap;
+    text-align: center;
+}
+
+#cart table thead {
+    border: 1px solid black;
+    border-left: none;
+    border-right: none;
+}
+
+#cart table thead td {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.59em;
+    padding: 1.3em 0;
+}
+
+#cart table tbody tr td {
+    padding: 1.8em;
+}
+
+#cart table tbody tr a {
+    font-size: 1.5em;
+}
+
+#cart table tbody tr a:hover {
+    transform: translateX(0.2rem);
+    color: rgb(255, 128, 0);
+}
+
+#cart table thead tr td:nth-child(1),
+#cart table thead tr td:nth-child(2) {
+    width: 7em;
+    text-align: center;
+}
+
+#total {
+    font-weight: 900;
+    font-size: 0.8em;
+}
+
+#checkout, .addToCart {
+    background: linear-gradient(to right, rgb(175, 116, 2), rgb(194, 19, 19));
+    border: 0;
+    border-radius: 10rem;
+    padding: 1em;
+}
+
+#blank {
+    background: linear-gradient(to left, rgb(132 90 19), rgb(33 33 115));
+    font-size: 10em;
+    margin-top: 3em;
+    display: flex;
+    justify-content: space-around;
+}
+
+#last {
+    background: #390003;
+    /*background: linear-gradient(to right, rgb(132 90 19), rgb(33 33 115));*/
+
+}
+
+#checkout:hover, .addToCart:hover {
+    background: linear-gradient(to right, rgb(132 90 19), rgb(33 33 115));
+}
+
+/* Footer Styles start */
+
+.footer {
+    margin-top: 55em;
+    width: 100%;
+    bottom: 0;
+    background: var(--black);
+    text-align: center;
+    left: -1em;
+}
+
+.footer .share {
+    padding: 1rem 0;
+}
+
+.footer .share a {
+    height: 5rem;
+    width: 5rem;
+    line-height: 5rem;
+    font-size: 2rem;
+    color: #fff;
+    border: var(--border);
+    margin: 0.3rem;
+    border-radius: 50%;
+}
+
+.footer .share a:hover {
+    background-color: var(--main-color);
+}
+
+.footer .links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 2rem 0;
+    gap: 1rem;
+}
+
+.footer .links a {
+    padding: 0.7rem 2rem;
+    color: #fff;
+    border: var(--border);
+    font-size: 2rem;
+}
+
+.footer .links a:hover {
+    background: var(--main-color);
+}
+
+.footer .credit {
+    font-size: 2rem;
+    color: #fff;
+    font-weight: lighter;
+    padding: 1.5rem;
+}
+
+.footer .credit span {
+    color: var(--main-color);
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    font-size: 1.1em;
+}
+
+/* Footer Styles end */
